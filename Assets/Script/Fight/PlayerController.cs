@@ -90,8 +90,7 @@ public class PlayerController : MonoBehaviour
                 CurHp = 0;
                 return;
             }
-
-            move = Quaternion.AngleAxis(RealCamera.gameObject.transform.rotation.eulerAngles.y, Vector3.up) * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * MoveSpeed;
+            move = Quaternion.AngleAxis(RealCamera.gameObject.transform.rotation.eulerAngles.y, Vector3.up) * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * MoveSpeed * Time.fixedDeltaTime;
             transform.position += move;
             if (move.magnitude > 0)
                 transform.rotation = Quaternion.FromToRotation(Vector3.forward, move);

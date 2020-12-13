@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4756943562266482041}
-  - component: {fileID: 4756943562266482040}
+  - component: {fileID: 2945470816356668916}
   - component: {fileID: 4756943562266482043}
-  - component: {fileID: 4756943562266482042}
   - component: {fileID: 6382486258141141912}
   m_Layer: 0
   m_Name: DamageCircle
@@ -34,14 +33,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4756943562266482040
+--- !u!33 &2945470816356668916
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4756943562266482037}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!23 &4756943562266482043
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -81,20 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &4756943562266482042
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4756943562266482037}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &6382486258141141912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,8 +92,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33288a869bd58bb428bee620082f43e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startObject: {fileID: 0}
   followObject: {fileID: 0}
-  maxSize: 1
+  anglefov: 360
+  radiusInner: 0.5
+  radius: 1
   timer: 0
+  scale: 0
   damage: 0
+  triangles: 
+  uvs: []
+  vertices: []
+  normals: []
+  meshFilter: {fileID: 0}
+  meshRenderer: {fileID: 4756943562266482043}

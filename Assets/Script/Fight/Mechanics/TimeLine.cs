@@ -8,7 +8,7 @@ public class TimeLine : MonoBehaviour
 {
 
     private Queue<float> timeQueue = new Queue<float>();
-    private Queue<Damage> damageQueue = new Queue<Damage>();
+    private Queue<DamageInfo> damageQueue = new Queue<DamageInfo>();
     public float timer = 0f;
     public bool isPlaying = false;
 
@@ -26,13 +26,13 @@ public class TimeLine : MonoBehaviour
                 if (timeQueue.Peek() <= timer)      // 判断最近的伤害事件是否到达时间
                 {
                     timeQueue.Dequeue();
-                    damageQueue.Dequeue().Create();
+                    damageQueue.Dequeue().Instanciate();
                 }
             }
         }
     }
 
-    public void AddDamage(float startTime, Damage damage)
+    public void AddDamage(float startTime, DamageInfo damage)
     {
         timeQueue.Enqueue(startTime);
         damageQueue.Enqueue(damage);

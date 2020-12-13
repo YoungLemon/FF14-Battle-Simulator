@@ -75,23 +75,21 @@ public class FightManager : MonoBehaviour
         PlayerController[] players = FindObjectsOfType<PlayerController>();
         for (int i = 1 + delaySecond; i < durationSecond + delaySecond; i++)
         {
+            int time = i - delaySecond - 1;
             foreach (PlayerController player in players)
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(Vector3.zero, 2, 0.8f, 20000, player.gameObject));
-            if (i % 3 == 0)
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(Vector3.zero, 5, 2.5f, 50000));
-            if (i % 6 == 0)
             {
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(2, 0, 2), 4, 2f, 50000));
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(2, 0, -2), 4, 2f, 50000));
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(-2, 0, 2), 4, 2f, 50000));
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(-2, 0, -2), 4, 2f, 50000));
+                if (time % 2 == 0)
+                {
+                    timeLine.AddDamage(i, new CircleTouchDamageInfo(player.gameObject, 20000, 1.5f, 4));
+                }
             }
-            else if (i % 12 == 0)
+                
+            if (time > 4 && time % 3 == 0)
             {
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(2, 0, 0), 4, 2f, 50000));
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(0, 0, -2), 4, 2f, 50000));
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(-2, 0, 0), 4, 2f, 50000));
-                timeLine.AddDamage(i, DamageManager.Instance.CreateCircleTouchDamage(new Vector3(0, 0, 2), 4, 2f, 50000));
+                if (time % 6 == 0)
+                    timeLine.AddDamage(i, new CircleTouchDamageInfo(Vector3.zero, 50000, 3f, 10));
+                else
+                    timeLine.AddDamage(i, new RingTouchDamageInfo(Vector3.zero, 50000, 3f, 10));
             }
         }
     }
@@ -121,6 +119,6 @@ public class FightManager : MonoBehaviour
 
     public Vector3 GenerateRespawnPos()
     {
-        return new Vector3(-4, 0.3f, 0) + Quaternion.AngleAxis(UnityEngine.Random.Range(0, 360), Vector3.up) * Vector3.forward * 0.5f;
+        return new Vector3(0, 0, -15) + Quaternion.AngleAxis(UnityEngine.Random.Range(0, 360), Vector3.up) * Vector3.forward * 2f;
     }
 }

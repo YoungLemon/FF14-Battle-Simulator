@@ -33,6 +33,7 @@ public class ChatManager : MonoBehaviour
     private void Start()
     {
         FNet.Instance.RegisterChatroom();
+        AddMessage("欢迎进入游戏！按F1键开始游戏，请躲避伤害区域。", true);
     }
 
     private void Update()

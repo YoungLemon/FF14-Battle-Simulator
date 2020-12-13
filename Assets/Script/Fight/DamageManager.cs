@@ -14,15 +14,49 @@ public class DamageManager : MonoBehaviour
             Instance = this;
     }
 
-    public Damage CreateCircleTouchDamage(Vector3 pos, float size, float durationTime, int damageNum, GameObject startObject=null)
+    public void InstanciateDamage(DamageInfo info)
     {
-        CircleTouchDamage d = Instantiate(CircleTouchDamageObject).GetComponent<CircleTouchDamage>();
-        d.transform.position = new Vector3(pos.x, 0.1f, pos.z);
-        d.transform.localScale = new Vector3(0, 0.01f, 0);
-        d.maxSize = size;
-        d.timer = durationTime;
-        d.damage = damageNum;
-        d.startObject = startObject;
-        return d;
+        if (info is CircleTouchDamageInfo)
+        {
+            CircleTouchDamageInfo ctdInfo = info as CircleTouchDamageInfo;
+            Vector3 pos;
+            CircleTouchDamage d;
+            if (ctdInfo.fromObject != null)
+            {
+                pos = new Vector3(ctdInfo.fromObject.transform.position.x, 0, ctdInfo.fromObject.transform.position.z);
+            }
+            else
+            {
+                pos = ctdInfo.fromPosition;
+            }
+            d = Instantiate(CircleTouchDamageObject, pos, Quaternion.identity).GetComponent<CircleTouchDamage>();
+            d.radius = ctdInfo.radius;
+            d.radiusInner = 0;
+            d.anglefov = 360;
+            d.timer = ctdInfo.displaySecond;
+            d.damage = ctdInfo.damageNum;
+            d.transform.SetParent(transform);
+        }
+        else if (info is RingTouchDamageInfo)
+        {
+            RingTouchDamageInfo rtdInfo = info as RingTouchDamageInfo;
+            Vector3 pos;
+            CircleTouchDamage d;
+            if (rtdInfo.fromObject != null)
+            {
+                pos = new Vector3(rtdInfo.fromObject.transform.position.x, 0, rtdInfo.fromObject.transform.position.z);
+            }
+            else
+            {
+                pos = rtdInfo.fromPosition;
+            }
+            d = Instantiate(CircleTouchDamageObject, pos, Quaternion.identity).GetComponent<CircleTouchDamage>();
+            d.radius = rtdInfo.radius;
+            d.radiusInner = rtdInfo.radiusInner;
+            d.anglefov = 360;
+            d.timer = rtdInfo.displaySecond;
+            d.damage = rtdInfo.damageNum;
+            d.transform.SetParent(transform);
+        }
     }
 }

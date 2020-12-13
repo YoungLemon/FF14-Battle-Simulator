@@ -243,7 +243,7 @@ namespace FFSimulator_client
                     ViewT.getInstance(ViewTIndex).visitPosition(e =>
                     {
                         var positionServer = e[playerNicknames[nickname]].position;
-                        pos = new Vector3(positionServer.x, 0.3f, positionServer.y);
+                        pos = new Vector3(positionServer.x, 0, positionServer.y);
                     });
                 }
                 catch (Exception) 
