@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManager : MonoBehaviour
+public class DamageFactory : MonoBehaviour
 {
     public GameObject CircleTouchDamageObject;
 
-    public static DamageManager Instance;
+    public static DamageFactory Instance;
 
     private void Awake()
     {

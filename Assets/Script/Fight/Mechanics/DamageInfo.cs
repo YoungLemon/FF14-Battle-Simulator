@@ -11,6 +11,6 @@ public abstract class DamageInfo
 
     public void Instanciate()
     {
-        DamageManager.Instance.InstanciateDamage(this);
+        DamageFactory.Instance.InstanciateDamage(this);
     }
 }

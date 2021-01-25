@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     private CinemachineFreeLook CinemachineCamera;
 
     // 逻辑
-    public bool IsMine { get; private set; } = false;
+    // 单机下，IsMine默认为true
+    public bool IsMine { get; private set; } = true;
 
     private void Start()
     {
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour
             transform.position += move;
             if (move.magnitude > 0)
                 transform.rotation = Quaternion.FromToRotation(Vector3.forward, move);
-            FNet.Instance.SetPosition(transform.position);
+            // FNet.Instance.SetPosition(transform.position);
         }
         else
             transform.position = FNet.Instance.GetPosition(nickname);
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (IsMine)
         {
             CurHp = TargetHp;
-            FNet.Instance.SetHp(CurHp);
+            // FNet.Instance.SetHp(CurHp);
         }
     }
 

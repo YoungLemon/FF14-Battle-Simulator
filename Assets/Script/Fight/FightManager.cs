@@ -35,20 +35,29 @@ public class FightManager : MonoBehaviour
 
     private void Update()
     {
-        if (FNet.Instance.connectionState != ConnectionState.OFFLINE)
-        {
-            CheckPlayerChanged();
-            if (FNet.Instance.connectionState == ConnectionState.PLAYING && timeLine.isPlaying == false)
-            {   // 接收到服务器开始执行时间轴的命令
-                StartCoroutine(CountDown());
-                InitTimeLine(60, 3);
-                timeLine.isPlaying = true;
-            }
-            if (Input.GetKeyDown(KeyCode.F1))
-            {   // 告知服务器即将开始时间轴
-                FNet.Instance.StartPlaying();
-            }
-        }  
+        /// 联机代码
+        //if (FNet.Instance.connectionState != ConnectionState.OFFLINE)
+        //{
+        //    CheckPlayerChanged();
+        //    if (FNet.Instance.connectionState == ConnectionState.PLAYING && timeLine.isPlaying == false)
+        //    {   // 接收到服务器开始执行时间轴的命令
+        //        StartCoroutine(CountDown());
+        //        InitTimeLine(60, 3);
+        //        timeLine.isPlaying = true;
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.F1))
+        //    {   // 告知服务器即将开始时间轴
+        //        FNet.Instance.StartPlaying();
+        //    }
+        //}
+
+        /// 单机代码
+        if (Input.GetKeyDown(KeyCode.F1))
+        {   // 开始游戏
+            StartCoroutine(CountDown());
+            InitTimeLine(60, 3);
+            timeLine.isPlaying = true;
+        }
     }
 
     private void OnDestroy()
@@ -71,26 +80,64 @@ public class FightManager : MonoBehaviour
 
     private void InitTimeLine(int durationSecond, int delaySecond)
     {
-        // 时间轴内容
         PlayerController[] players = FindObjectsOfType<PlayerController>();
-        for (int i = 1 + delaySecond; i < durationSecond + delaySecond; i++)
+        // 时间轴内容
+        switch (DateTime.Now.Minute % 3)
         {
-            int time = i - delaySecond - 1;
-            foreach (PlayerController player in players)
-            {
-                if (time % 2 == 0)
+            case 0:
+                timeLine.AddDamage(delaySecond + 1, new CircleTouchDamageInfo(Vector3.zero, 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 3, new CircleTouchDamageInfo(new Vector3(10, 0, 0), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 5, new CircleTouchDamageInfo(new Vector3(7, 0, 7), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 7, new CircleTouchDamageInfo(new Vector3(0, 0, 10), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 9, new CircleTouchDamageInfo(new Vector3(-7, 0, 7), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 11, new CircleTouchDamageInfo(new Vector3(-10, 0, 0), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 13, new CircleTouchDamageInfo(new Vector3(-7, 0, -7), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 15, new CircleTouchDamageInfo(new Vector3(0, 0, -10), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 17, new CircleTouchDamageInfo(new Vector3(7, 0, -7), 80000, 10f, 10));
+                foreach (PlayerController player in players)
                 {
-                    timeLine.AddDamage(i, new CircleTouchDamageInfo(player.gameObject, 20000, 1.5f, 4));
+                    timeLine.AddDamage(delaySecond + 19, new CircleTouchDamageInfo(player.gameObject, 40000, 2f, 4));
                 }
-            }
-                
-            if (time > 4 && time % 3 == 0)
-            {
-                if (time % 6 == 0)
-                    timeLine.AddDamage(i, new CircleTouchDamageInfo(Vector3.zero, 50000, 3f, 10));
-                else
-                    timeLine.AddDamage(i, new RingTouchDamageInfo(Vector3.zero, 50000, 3f, 10));
-            }
+                foreach (PlayerController player in players)
+                {
+                    timeLine.AddDamage(delaySecond + 21, new CircleTouchDamageInfo(player.gameObject, 40000, 2f, 4));
+                }
+                foreach (PlayerController player in players)
+                {
+                    timeLine.AddDamage(delaySecond + 23, new CircleTouchDamageInfo(player.gameObject, 40000, 2f, 4));
+                }
+                break;
+            case 1:
+                timeLine.AddDamage(delaySecond + 1, new CircleTouchDamageInfo(Vector3.zero, 80000, 10f, 5));
+                timeLine.AddDamage(delaySecond + 4, new RingTouchDamageInfo(Vector3.zero, 80000, 10f, 5.1f, 10));
+                timeLine.AddDamage(delaySecond + 7, new RingTouchDamageInfo(Vector3.zero, 80000, 10f, 10.1f, 15));
+                timeLine.AddDamage(delaySecond + 10, new RingTouchDamageInfo(Vector3.zero, 80000, 10f, 15.1f, 20));
+                timeLine.AddDamage(delaySecond + 14, new CircleTouchDamageInfo(new Vector3(14, 0, 14), 80000, 10f, 20));
+                timeLine.AddDamage(delaySecond + 14, new CircleTouchDamageInfo(new Vector3(14, 0, -14), 80000, 10f, 20));
+                timeLine.AddDamage(delaySecond + 14, new CircleTouchDamageInfo(new Vector3(-14, 0, 14), 80000, 10f, 20));
+                timeLine.AddDamage(delaySecond + 14, new CircleTouchDamageInfo(Vector3.zero, 80000, 10f, 5));
+                timeLine.AddDamage(delaySecond + 17, new RingTouchDamageInfo(Vector3.zero, 80000, 10f, 5.1f, 10));
+                timeLine.AddDamage(delaySecond + 20, new RingTouchDamageInfo(Vector3.zero, 80000, 10f, 10.1f, 15));
+                timeLine.AddDamage(delaySecond + 23, new RingTouchDamageInfo(Vector3.zero, 80000, 10f, 15.1f, 20));
+                break;
+            case 2:
+                timeLine.AddDamage(delaySecond + 1, new CircleTouchDamageInfo(new Vector3(20, 0, 0), 80000, 10f, 20));
+                timeLine.AddDamage(delaySecond + 1, new CircleTouchDamageInfo(new Vector3(-20, 0, 0), 80000, 10f, 20));
+                foreach (PlayerController player in players)
+                {
+                    timeLine.AddDamage(delaySecond + 3, new CircleTouchDamageInfo(player.gameObject, 40000, 2f, 4));
+                }
+                foreach (PlayerController player in players)
+                {
+                    timeLine.AddDamage(delaySecond + 9, new CircleTouchDamageInfo(player.gameObject, 40000, 2f, 4));
+                }
+                timeLine.AddDamage(delaySecond + 11, new RingTouchDamageInfo(new Vector3(20, 0, 0), 80000, 10f, 10));
+                timeLine.AddDamage(delaySecond + 11, new RingTouchDamageInfo(new Vector3(-20, 0, 0), 80000, 10f, 10));
+                foreach (PlayerController player in players)
+                {
+                    timeLine.AddDamage(delaySecond + 16, new RingTouchDamageInfo(player.gameObject, 40000, 2f, 4, 8));
+                }
+                break;
         }
     }
 

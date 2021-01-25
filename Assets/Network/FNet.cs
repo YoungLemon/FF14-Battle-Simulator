@@ -33,7 +33,7 @@ namespace FFSimulator_client
             Instance.nickname = nickname;
             Endpoint.openEngine();
             EndpointConfig config = Endpoint.createEndpointConfigBuilder(
-                    serverIP, 30000, LoginConfig.plainLogin(nickname, "123456", "test"))
+                    serverIP, 10000, LoginConfig.plainLogin(nickname, "123456", "test"))
                 .staticViewClasses(ViewManager.createInstance(providerId))
                 .build();
             Endpoint.start(config, new MyListener());

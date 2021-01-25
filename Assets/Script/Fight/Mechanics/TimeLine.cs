@@ -4,6 +4,44 @@ using UnityEngine;
 
 using FFSimulator_client;
 
+
+enum VisualType
+{
+    Circle,
+    Ring,
+
+} 
+
+enum DamageAmount
+{
+    Subtle,
+    Middle,
+    Sever,
+    Executional,
+    Death
+}
+
+enum CircleRadius
+{
+    Small,      // R = 2
+    OneStep,    // R = 5
+    Half,       // R = 10
+    Big,        // R = 15
+    Whole,      // R = 20
+}
+
+enum TargetSelectType
+{
+    All,
+    RandomOne
+}
+
+enum PositionType
+{
+    Follow,
+    Fixed
+}
+
 public class TimeLine : MonoBehaviour
 {
 

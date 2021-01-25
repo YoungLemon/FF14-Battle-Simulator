@@ -32,7 +32,7 @@ public class ChatManager : MonoBehaviour
 
     private void Start()
     {
-        FNet.Instance.RegisterChatroom();
+        // FNet.Instance.RegisterChatroom();
         AddMessage("欢迎进入游戏！按F1键开始游戏，请躲避伤害区域。", true);
     }
 
@@ -40,7 +40,7 @@ public class ChatManager : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && chatInput.text != "")
         {
-            FNet.Instance.SendMessage(chatInput.text);
+            // FNet.Instance.SendMessage(chatInput.text);
             chatInput.text = "";
             chatInput.ActivateInputField();
         }
